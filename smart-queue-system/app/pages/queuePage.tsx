@@ -5,10 +5,22 @@ import waitImgame from "../images/queue1.png";
 import locationImgame from "../images/location_logo.png";
 
 const PaymentPage: React.FC = () => {
+    const [currentDate, setCurrentDate] = useState < string>()
+    new Date().toLocaleString('th-TH', { timeZone: 'Asia/Bangkok' });
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentDate(new Date().toLocaleString('th-TH', { timeZone: 'Asia/Bangkok' }));
+        }, 1000); // อัพเดททุก 1 วินาที
+
+        // ล้าง interval เมื่อ component ถูก unmount เพื่อป้องกันปัญหา memory leak
+        return () => clearInterval(interval);
+    }, []);
+
     return (
         <div className="min-h-screen flex flex-col items-center justify-center bg-[#CA7257]">
-            <h1 className="text-6xl text-white-900 font-bold mt-11">Queue </h1>
-            <div className="bg-white shadow-md rounded-lg -md w-full">
+            <h1 className="text-6xl text-white-900 p-3 font-bold mt-1">Queue </h1>
+            <div className="bg-white shadow-md rounded-lg max-w-md w-full">
 
                 {/* Queue Text Section */}
                 <div className="mt-6 flex p-2 justify-center">
@@ -24,11 +36,11 @@ const PaymentPage: React.FC = () => {
 
                 {/* Text Section */}
                 <div className="flex flex-col items-center">
-                    <p className="text-[#CA7257] p-4 text-2xl">
+                    <p className="text-[#CA7257] text-2xl">
                         POSITION IN QUEUE <br />
                     </p>
-                    <p className="text-[#CA7257] max-w front-bold text-3xl">
-                        ....................................................<br />
+                    <p className="text-black font-light text-xl">
+                        {currentDate} <br />
                     </p>
 
                     <div className="mt-6 flex justify-between">
@@ -40,14 +52,14 @@ const PaymentPage: React.FC = () => {
                             height={30}
                             className="object-contain"
                         />
-                        <p className="text-center text-[#CA7257] text-2xl">
-                            ตลาดน้อยตึกเพียรวิจิตร<br/>
+                        <p className="text-[#CA7257] font-light text-2xl">
+                            ตลาดน้อยตึกเพียรวิจิตร<br />
                         </p>
                     </div>
                 </div>
 
                 {/* Image Section */}
-                <div className="flex flex-col items-center">
+                <div className="flex flex-col p-10 items-center">
 
                     {/* Placeholder for Image */}
                     <Image
@@ -57,7 +69,7 @@ const PaymentPage: React.FC = () => {
                         height={320}
                         className="object-contain"
                     />
-                    <p className="text-center text-gray-900 font-bold text-3xl">
+                    <p className="text-center text-gray-900 font-bold text-4xl">
                         Please wait ...<br />
                     </p>
                 </div>
