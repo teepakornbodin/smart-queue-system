@@ -4,8 +4,15 @@ import Image from 'next/image';
 import bg from '../images/bgHeader.svg';
 import intro from '../images/intro.svg';
 import User from '../images/user.svg';
+import {SetStateAction, useState} from 'react';
 
 const headerPage = () => {
+  const [userName, setUserName] = useState('');
+  
+  const handleInput = (e: { target: { value: SetStateAction<string>; }; }) => {
+    setUserName(e.target.value);
+  };
+  
   return (
     <div
       className="h-screen bg-cover bg-center flex flex-col p-4 w-full relative"
@@ -30,6 +37,8 @@ const headerPage = () => {
           <input
             type="text"
             placeholder="พิมพ์ชื่อของคุณ......"
+            value={userName}
+            onChange={handleInput}
             className="bg-white text-black px-10 py-4 rounded-full text-center shadow-lg border-2 border-[#CA7257] w-full max-w-md text-xl font-semibold"
           />
           </div>

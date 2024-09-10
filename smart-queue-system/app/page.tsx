@@ -1,10 +1,10 @@
-// import PaymentPage from "./payment/paymentPage"
+import PaymentPage from "./pages/headerPage"
 import OrderPayment from "./order/orderPayment";
 export default function Home() {
   return (
     <div>
-      {/* <PaymentPage/> */}
-      <OrderPayment/>
+      <PaymentPage/>
+      {/* <OrderPayment/> */}
     </div>
   );
 }
