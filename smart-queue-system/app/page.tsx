@@ -1,9 +1,10 @@
-import HeaderPage from "./pages/headerPage";
-
+import PaymentPage from "./payment/paymentPage";
+import OrderPayment from "./order/orderPayment";
 export default function Home() {
   return (
     <div>
-      <HeaderPage/>
+      {/* <PaymentPage/> */}
+      <OrderPayment/>
     </div>
   );
 }
