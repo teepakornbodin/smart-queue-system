@@ -1,5 +1,5 @@
-import PaymentPage from "./payment/paymentPage";
-import HeaderPage from "./payment/headerPage";
+import PaymentPage from "./pages/paymentPage";
+import HeaderPage from "./pages/headerPage";
 
 export default function Home() {
   return (
