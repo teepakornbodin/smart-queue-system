@@ -1,11 +1,9 @@
 // pages/payment.tsx
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
 import Image from 'next/image';
 import qrImage from "../images/qrCode.png";
 
 const PaymentPage: React.FC = () => {
-    const router = useRouter();
     
     // useEffect(() => {
     //     // ตั้งเวลา 5 นาที (300,000 มิลลิวินาที)
@@ -16,7 +14,6 @@ const PaymentPage: React.FC = () => {
     //     return () => clearTimeout(timer);
     //   }, [router]);
     
-
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
       <div className="bg-white shadow-md rounded-lg p-6 max-w-md w-full">
