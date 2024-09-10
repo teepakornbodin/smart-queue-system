@@ -5,17 +5,19 @@ import waitImgame from "../images/queue1.png";
 import locationImgame from "../images/location_logo.png";
 
 const PaymentPage: React.FC = () => {
-    const [currentDate, setCurrentDate] = useState < string>()
-    new Date().toLocaleString('th-TH', { timeZone: 'Asia/Bangkok' });
+    const currentDate = new Date().toLocaleDateString('th-TH', { timeZone: 'Asia/Bangkok' });
+    const currentTime = new Date().toLocaleTimeString('th-TH', { timeZone: 'Asia/Bangkok' });
+    // const [currentDate, setCurrentDate] = useState < string>()
+    // new Date().toLocaleString('th-TH', { timeZone: 'Asia/Bangkok' });
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setCurrentDate(new Date().toLocaleString('th-TH', { timeZone: 'Asia/Bangkok' }));
-        }, 1000); // อัพเดททุก 1 วินาที
+    // useEffect(() => {
+    //     const interval = setInterval(() => {
+    //         setCurrentDate(new Date().toLocaleString('th-TH', { timeZone: 'Asia/Bangkok' }));
+    //     }, 1000); // อัพเดททุก 1 วินาที
 
-        // ล้าง interval เมื่อ component ถูก unmount เพื่อป้องกันปัญหา memory leak
-        return () => clearInterval(interval);
-    }, []);
+    //     // ล้าง interval เมื่อ component ถูก unmount เพื่อป้องกันปัญหา memory leak
+    //     return () => clearInterval(interval);
+    // }, []);
 
     return (
         <div className="min-h-screen flex flex-col items-center justify-center bg-[#CA7257]">
@@ -40,7 +42,7 @@ const PaymentPage: React.FC = () => {
                         POSITION IN QUEUE <br />
                     </p>
                     <p className="text-black font-light text-xl">
-                        {currentDate} <br />
+                        {currentDate} {currentTime} <br />
                     </p>
 
                     <div className="mt-6 flex justify-between">
