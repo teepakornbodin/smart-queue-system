@@ -1,4 +1,4 @@
-import PaymentPage from "./payment/paymentPage";
+import PaymentPage from "./pages/paymentPage";
 
 export default function Home() {
   return (
