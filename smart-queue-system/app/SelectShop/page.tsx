@@ -1,9 +1,8 @@
 import React from 'react'
-
-function page() {
+function SelectShop() {
   return (
-    <div>page</div>
+    <div>SelectShop</div>
   )
 }
 
-export default page
+export default SelectShop
