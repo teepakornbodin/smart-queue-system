@@ -11,7 +11,14 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        'primary': '#CA7257'
       },
+      backgroundColor: {
+        'primary': '#CA7257'
+      },
+      boxShadow: {
+        'config': '0px 4px 3px -1px rgba(0, 0, 0, 0.1)',
+      }
     },
   },
   plugins: [],
