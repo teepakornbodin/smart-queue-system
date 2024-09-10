@@ -1,9 +1,9 @@
-import QueuePage from "./pages/queuePage";
+import HeaderPage from "./pages/headerPage";
 
 export default function Home() {
   return (
     <div>
-      <QueuePage/>
+      <HeaderPage/>
     </div>
   );
 }
