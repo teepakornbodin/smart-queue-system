@@ -1,4 +1,4 @@
-import HeaderPage from "./pages/headerPage";
+import HeaderPage from "./pages/queuePage";
 
 export default function Home() {
   return (
