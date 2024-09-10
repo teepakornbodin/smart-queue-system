@@ -1,8 +1,8 @@
 // pages/index.js
 import Image from 'next/image';
-import Image1 from './image/ข้สวยำ 1.png';
-import Image2 from './image/ชาบู 1.png';
-import Image3 from './image/images (2) 1.png';
+import Image1 from '../images/food2.png';
+import Image2 from '../images/food3.png';
+import Image3 from '../images/food1.png';
 
 const headerPage = () => {
   return (
