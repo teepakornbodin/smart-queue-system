@@ -1,7 +1,7 @@
 'use client'
 import Image from 'next/image';
 import React from 'react'
-import Shabu from '../images/shabu.png'
+import Shabu from '../images/mushroom.png'
 import { useRouter } from 'next/navigation';
 import HeaderTitle from '@/components/headerTitle';
 
@@ -10,7 +10,7 @@ function SelectShop() {
     const router = useRouter();
 
     const backToHome = () => {
-        router.push('/')
+        router.push('/Home')
     }
     const handleClick = () => {
         // แก้pathเอาเด้อ

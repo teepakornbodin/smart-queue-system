@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import qrImage from "../images/qrCode.png";
-import { FiArrowLeft } from "react-icons/fi";
+// import { FiArrowLeft } from "react-icons/fi";
 import router, { useRouter } from "next/router";
 import Link from 'next/link';
 import OrderPayment from "../order/orderPayment";
@@ -50,7 +50,7 @@ const PaymentPage: React.FC = () => {
         {/* header */}
         <div className="bg-[#CA7257] rounded-lg relative flex justify-center p-1.5 mt-1.5">
           <button className="absolute left-2">
-            <FiArrowLeft color="white" />
+            {/* <FiArrowLeft color="white" /> */}
           </button>
           <div>
             <p className="text-white text-xs">ชำระเงิน</p>
