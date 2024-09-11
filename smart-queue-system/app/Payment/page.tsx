@@ -6,7 +6,7 @@ import qrImage from "../images/qrCode.png";
 // import { FiArrowLeft } from "react-icons/fi";
 import {useRouter} from "next/navigation";
 import Link from 'next/link';
-import OrderPayment from "../order/orderPayment";
+import OrderPayment from "../order/page";
 
 //npx next dev
 const PaymentPage: React.FC = () => {
