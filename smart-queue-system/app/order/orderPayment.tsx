@@ -2,8 +2,8 @@
 import Image from "next/image";
 import { orderData } from "./orderData";
 import { useState } from "react";
-import lessIcon from '../images/lessIcon.png';
-import plusIcon from '../images/plusIcon.png';
+import lessIcon from '../images/lessIcon.svg';
+import plusIcon from '../images/addIco.svg';
 import cartIcon from '../images/cartIcon.png';
 import cartIcon2 from '../images/cartIcon2.png';
 
@@ -52,7 +52,6 @@ const OrderPayment = () => {
 
                         ))}
                         <h1 className="text-lg font-bold text-center mt-6 flex" >
-                        <Image src={cartIcon} alt="cart" width={30} height={30} /> 
                             Total: ฿{quantities.reduce((total, quantity) => total + quantity * 10, 0)}
                         </h1>
 
