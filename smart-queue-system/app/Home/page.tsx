@@ -50,7 +50,7 @@ const HeaderPage = () => {
             placeholder="พิมพ์ชื่อของคุณ......"
             value={userName}
             onChange={handleInput}
-            className={`bg-white text-black px-10 py-4 rounded-full text-center shadow-lg border-2 border-[#CA7257] w-full max-w-md text-xl font-semibold ${mitr.className}`}
+            className={`bg-white text-black px-10 py-4 rounded-full text-center shadow-lg border-2 border-[#CA7257] focus:border-orange-500 w-full max-w-md text-xl font-semibold ${mitr.className}`}
           />
         </div>
 

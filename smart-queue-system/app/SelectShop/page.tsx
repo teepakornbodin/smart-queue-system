@@ -14,7 +14,7 @@ function SelectShop() {
     }
     const handleClick = () => {
         // แก้pathเอาเด้อ
-        router.push('/')
+        router.push('/order')
     }
 
     return (
