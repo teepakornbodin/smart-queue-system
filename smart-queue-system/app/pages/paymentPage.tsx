@@ -6,18 +6,21 @@ import qrImage from "../images/qrCode.png";
 import { FiArrowLeft } from "react-icons/fi";
 import router, { useRouter } from "next/router";
 import Link from 'next/link';
+import OrderPayment from "../order/orderPayment";
 
+//npx next dev
 const PaymentPage: React.FC = () => {
-  const [price, setPrice] = useState(50) //ไว้เชื่อมกับหน้าที่แล้ว
+  const [price, setPrice] = useState(50) //สามารถเปลี่ยนตัวแปรข้างในให้สอดคล้องกับราคาที่ส่งมา
   const [timeLeft, setTimeLeft] = useState(300); // 300 วินาที (5 นาที)
-  // const router = useRouter();
+
+
   useEffect(() => {
     // อัปเดตเวลาทุกๆ วินาที
     const interval = setInterval(() => {
       setTimeLeft((prevTime) => prevTime - 1);
     }, 1000);
 
-    // ตั้งเวลา 5 นาที (300,000 มิลลิวินาที) และเปลี่ยนหน้าเมื่อหมดเวลา
+    // ตั้งเวลา 5 นาที (300,000 มิลลิวินาที) เปลี่ยน path!
     const timer = setTimeout(() => {
       router.push("/headerPage");
     }, 300000);
@@ -36,7 +39,7 @@ const PaymentPage: React.FC = () => {
       .toString()
       .padStart(2, "0")}`;
   };
-  //handle button
+  //handle button เปลี่ยน path!
   const handleOkayButton = () => {
     router.push("/headerPage");
   };
@@ -55,7 +58,6 @@ const PaymentPage: React.FC = () => {
         </div>
         {/* QR Code Section */}
         <div className="flex flex-col items-center m-1">
-          {/* Placeholder for QR Code Image */}
           <Image
             src={qrImage}
             alt="QR Code"
