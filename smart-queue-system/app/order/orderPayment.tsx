@@ -1,14 +1,20 @@
 "use client"
 import Image from "next/image";
 import { orderData } from "./orderData";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import lessIcon from '../images/lessIcon.svg';
 import plusIcon from '../images/addIco.svg';
 import cartIcon from '../images/cartIcon.png';
 import cartIcon2 from '../images/cartIcon2.png';
 
 const OrderPayment = () => {
-    const [quantities, setQuantities] = useState(orderData.map(() => 0));
+    const [quantities, setQuantities] = useState<number[]>(orderData.map(() => 0));
+    const [total, setTotal] = useState<number>(0);
+
+    useEffect(() => {
+        const newTotal = quantities.reduce((total, quantity) => total + quantity * 10, 0);
+        setTotal(newTotal);
+    }, [quantities]);
 
     const handleIncrease = (index: number) => {
         setQuantities(quantities.map((quantity, i) => i === index ? quantity + 1 : quantity));
@@ -42,28 +48,20 @@ const OrderPayment = () => {
                                                 <Image src={plusIcon} alt="plus" width={30} height={30} />
                                             </button>
                                         </div>
-
                                     </div>
-
                                 </div>
-
-
                             </div>
-
                         ))}
-                        <h1 className="text-lg font-bold text-center mt-6 flex" >
-                            Total: ฿{quantities.reduce((total, quantity) => total + quantity * 10, 0)}
+                        <h1 className="text-lg font-bold text-center mt-6 flex">
+                            Total: ฿{total}
                         </h1>
-
-                       
-                            <button className="w-full bg-orange-800 text-white p-2 rounded-md hover:bg-orange-700 transition duration-300">
-                                ยืนยันรายการสินค้า
-                            </button>
-                        </div>
+                        <button className="w-full bg-orange-800 text-white p-2 rounded-md hover:bg-orange-700 transition duration-300">
+                            ยืนยันรายการสินค้า
+                        </button>
                     </div>
                 </div>
             </div>
-
+        </div>
     );
 };
 
