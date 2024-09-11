@@ -1,5 +1,6 @@
 'use client'
 import HeaderTitle from '@/components/headerTitle'
+import OrderCustumer from '@/components/orderCustomer';
 import { useRouter } from 'next/navigation'
 import React from 'react'
 
@@ -14,7 +15,9 @@ function ConfirmOrder() {
       <HeaderTitle title='Confirm Order' handleClick={prevPage}/>
       <div>
         <h2>Order Summary</h2>
-        <div></div>
+        <div>
+          <OrderCustumer menu={'หมูสามชั้น'} img={undefined} qutites={0}/>
+        </div>
         <div>
           <div className='flex justify-between items-center'>
             <h2>ToTal</h2>

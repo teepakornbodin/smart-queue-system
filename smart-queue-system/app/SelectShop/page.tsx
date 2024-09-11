@@ -13,15 +13,14 @@ function SelectShop() {
         router.push('/')
     }
     const handleClick = () => {
-        // แก้pathเอาเด้อ
-        router.push('/')
+        router.push('/order')
     }
 
     return (
         <div className='grid justify-center items-center gap-10'>
             <HeaderTitle title='เลือกร้านค้า' handleClick={backToHome}/>
             <div 
-                className='grid max-sm:w-[300px] rounded-[25px] shadow-config cursor-pointer'
+                className='grid max-sm:w-[300px] w-[500px] rounded-[25px] shadow-config cursor-pointer'
                 onClick={handleClick}
             >
                 <Image

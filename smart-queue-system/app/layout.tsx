@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${mitr.className} antialiased mt-4`}>
+      <body className={`${mitr.className} antialiased`}>
         {children}
       </body>
     </html>
