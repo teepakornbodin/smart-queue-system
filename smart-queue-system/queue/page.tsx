@@ -1,8 +1,9 @@
 // pages/payment.tsx
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import waitImgame from "../images/queue1.png";
+import waitImgame from '../images/queue1.png';
 import locationImgame from "../images/location_logo.png";
+
 
 const PaymentPage: React.FC = () => {
     const currentDate = new Date().toLocaleDateString('th-TH', { timeZone: 'Asia/Bangkok' });

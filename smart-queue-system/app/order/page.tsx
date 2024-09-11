@@ -1,9 +1,9 @@
 "use client";
 import Image from "next/image";
 import { orderData } from "./orderData";
-import { useState } from "react";
-import lessIcon from '../images/lessIcon.png';
-import plusIcon from '../images/plusIcon.png';
+import { useState, useEffect } from "react";
+import lessIcon from '../images/lessIcon.svg';
+import plusIcon from '../images/addIco.svg';
 import cartIcon from '../images/cartIcon.png';
 import cartIcon2 from '../images/cartIcon2.png';
 import { useRouter } from "next/navigation";
