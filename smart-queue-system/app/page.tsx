@@ -1,9 +1,9 @@
-import HeaderPage from "./pages/headerPage";
+import HeaderTitle from "./Home/page";
 
 export default function Home() {
   return (
     <div>
-      <HeaderPage/>
+      <HeaderTitle/>
     </div>
   );
 }
