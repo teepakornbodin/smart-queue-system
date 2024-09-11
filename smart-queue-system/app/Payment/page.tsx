@@ -3,23 +3,26 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import qrImage from "../images/qrCode.png";
-import { FiArrowLeft } from "react-icons/fi";
-import router, { useRouter } from "next/router";
+// import { FiArrowLeft } from "react-icons/fi";
+import {useRouter} from "next/navigation";
 import Link from 'next/link';
+import OrderPayment from "../order/page";
 
+//npx next dev
 const PaymentPage: React.FC = () => {
-  const [price, setPrice] = useState(50) //ไว้เชื่อมกับหน้าที่แล้ว
+  const [price, setPrice] = useState(50) //สามารถเปลี่ยนตัวแปรข้างในให้สอดคล้องกับราคาที่ส่งมา
   const [timeLeft, setTimeLeft] = useState(300); // 300 วินาที (5 นาที)
-  // const router = useRouter();
+  const router = useRouter();
+
   useEffect(() => {
     // อัปเดตเวลาทุกๆ วินาที
     const interval = setInterval(() => {
       setTimeLeft((prevTime) => prevTime - 1);
     }, 1000);
 
-    // ตั้งเวลา 5 นาที (300,000 มิลลิวินาที) และเปลี่ยนหน้าเมื่อหมดเวลา
+    // ตั้งเวลา 5 นาที (300,000 มิลลิวินาที) เปลี่ยน path!
     const timer = setTimeout(() => {
-      router.push("/headerPage");
+      router.push("/Home");
     }, 300000);
 
     // ล้าง interval และ timer เมื่อ component ถูก unmount
@@ -36,9 +39,9 @@ const PaymentPage: React.FC = () => {
       .toString()
       .padStart(2, "0")}`;
   };
-  //handle button
+  //handle button เปลี่ยน path!
   const handleOkayButton = () => {
-    router.push("/headerPage");
+    router.push("/Home");
   };
 
   return (
@@ -47,7 +50,7 @@ const PaymentPage: React.FC = () => {
         {/* header */}
         <div className="bg-[#CA7257] rounded-lg relative flex justify-center p-1.5 mt-1.5">
           <button className="absolute left-2">
-            <FiArrowLeft color="white" />
+            {/* <FiArrowLeft color="white" /> */}
           </button>
           <div>
             <p className="text-white text-xs">ชำระเงิน</p>
@@ -55,7 +58,6 @@ const PaymentPage: React.FC = () => {
         </div>
         {/* QR Code Section */}
         <div className="flex flex-col items-center m-1">
-          {/* Placeholder for QR Code Image */}
           <Image
             src={qrImage}
             alt="QR Code"
@@ -82,12 +84,10 @@ const PaymentPage: React.FC = () => {
           <button className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 text-xs">
             ยกเลิก
           </button>
-          <Link href={'/headerPage'}>
-            <button className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 text-xs"
+          <button className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 text-xs"
             onClick={handleOkayButton}>
               ตกลง
-            </button>
-          </Link>
+          </button>
         </div>
       </div>
     </div>
