@@ -1,22 +1,45 @@
 'use client'
 import HeaderTitle from '@/components/headerTitle'
 import OrderCustumer from '@/components/orderCustomer';
+import { RootState } from '@/redux/store';
 import { useRouter } from 'next/navigation'
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { addMenu, decreaseQuantityMenu, removeMenu } from "@/redux/slices/counterSlice";
 
 function ConfirmOrder() {
-  const router = useRouter();
-  const prevPage = () => {
-    //เปลี่ยน path เอาเด้อ
-    router.push('/')
+  const menuLists = useSelector((state: RootState) => state.menu.menuLists)
+  const dispatch = useDispatch()
+
+  const deleteMenu = (menuName: string) => {
+    dispatch(removeMenu(menuName))
   }
+
+  const handleIncrease = (quantities: number, menu: string, img: any) => {
+    dispatch(addMenu({ menu, img, quantities}))
+  };
+
+  const handleDecrease = (menu: string) => {
+    dispatch(decreaseQuantityMenu(menu))
+  };
+
+  
   return (
     <div className='grid justify-center'>
-      <HeaderTitle title='Confirm Order' handleClick={prevPage}/>
+      <HeaderTitle title='Confirm Order'/>
       <div>
         <h2>Order Summary</h2>
         <div>
-          <OrderCustumer menu={'หมูสามชั้น'} img={undefined} qutites={0}/>
+          {menuLists.map((item) => (
+            <OrderCustumer 
+              menu={item.menu} 
+              img={item.img} 
+              quantites={item.quantities}
+              remove={() => deleteMenu(item.menu)}
+              increase={() => handleIncrease(item.quantities, item.menu, item.img)}
+              decrease={() => handleDecrease(item.menu)}
+            />
+          ))}
         </div>
         <div>
           <div className='flex justify-between items-center'>

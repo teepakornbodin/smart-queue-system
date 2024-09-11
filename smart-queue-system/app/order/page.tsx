@@ -7,20 +7,26 @@ import plusIcon from '../images/plusIcon.png';
 import cartIcon from '../images/cartIcon.png';
 import cartIcon2 from '../images/cartIcon2.png';
 import { useRouter } from "next/navigation";
+import { Provider, useDispatch } from "react-redux";
+import { store } from '../../redux/store'
+import { addMenu, decreaseQuantityMenu } from "@/redux/slices/counterSlice";
 
 const OrderPayment = () => {
     const router = useRouter();
-    const [quantities, setQuantities] = useState(orderData.map(() => 0));
+    const dispatch = useDispatch();
+    const [quantitie, setQuantities] = useState(orderData.map(() => 0));
 
-    const handleIncrease = (index: number) => {
-        setQuantities(quantities.map((quantity, i) => i === index ? quantity + 1 : quantity));
+    const handleIncrease = (index: number, menu: string, img: any) => {
+        setQuantities(quantitie.map((quantity, i) => i === index ? quantity + 1 : quantity));
+        dispatch(addMenu({ menu, img, quantities: index }))
     };
 
-    const handleDecrease = (index: number) => {
-        setQuantities(quantities.map((quantity, i) => i === index && quantity > 0 ? quantity - 1 : quantity));
+    const handleDecrease = (index: number, menu: string) => {
+        setQuantities(quantitie.map((quantity, i) => i === index && quantity > 0 ? quantity - 1 : quantity));
+        dispatch(decreaseQuantityMenu(menu))
     };
 
-    const total = quantities.reduce((total, quantity) => total + quantity * 10, 0)
+    const total = quantitie.reduce((total, quantity) => total + quantity * 10, 0)
 
     const confirmOrder = () => {
         router.push('/ConfirmOrder')
@@ -40,13 +46,13 @@ const OrderPayment = () => {
                                     <Image src={data.image} alt="product" width={350} height={350} />
                                     <div className="ml-5">
                                         <h1 className="text-lg text-center mt-2">{data.name}</h1>
-                                        <h1 className="text-lg text-center">{quantities[index] * 10}฿</h1>
+                                        <h1 className="text-lg text-center">{quantitie[index] * 10}฿</h1>
                                         <div className="flex items-center justify-center mt-2">
-                                            <button onClick={() => handleDecrease(index)}>
+                                            <button onClick={() => handleDecrease(quantitie[index], data.name)}>
                                                 <Image src={lessIcon} alt="less" width={30} height={30} />
                                             </button>
-                                            <h1 className="text-lg text-center mx-7">{quantities[index]}</h1>
-                                            <button onClick={() => handleIncrease(index)}>
+                                            <h1 className="text-lg text-center mx-7">{quantitie[index]}</h1>
+                                            <button onClick={() => handleIncrease(index, data.name, data.image)}>
                                                 <Image src={plusIcon} alt="plus" width={30} height={30} />
                                             </button>
                                         </div>
@@ -58,7 +64,7 @@ const OrderPayment = () => {
                             <Image src={cartIcon} alt="cart" width={30} height={30} />
                             Total: ฿{total}
                         </h1>
-                        <button 
+                        <button
                             className="w-full bg-orange-800 text-white p-2 rounded-md hover:bg-orange-700 transition duration-300 transform hover:scale-105"
                             onClick={confirmOrder}
                         >

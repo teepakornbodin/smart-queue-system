@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Mitr } from 'next/font/google';
 import "./globals.css";
+import ClientProvider from "./clientProvider";
 
 const mitr = Mitr({
   subsets: ['latin'],
@@ -20,7 +21,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${mitr.className} antialiased`}>
-        {children}
+          <ClientProvider>
+            {children}
+          </ClientProvider>
       </body>
     </html>
   );

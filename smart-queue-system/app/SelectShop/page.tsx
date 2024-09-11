@@ -1,7 +1,7 @@
 'use client'
 import Image from 'next/image';
 import React from 'react'
-import Shabu from '../images/mushroom.png'
+import Shabu from '../images/shabu.png'
 import { useRouter } from 'next/navigation';
 import HeaderTitle from '@/components/headerTitle';
 
@@ -9,16 +9,13 @@ function SelectShop() {
 
     const router = useRouter();
 
-    const backToHome = () => {
-        router.push('/Home')
-    }
     const handleClick = () => {
         router.push('/order')
     }
 
     return (
         <div className='grid justify-center items-center gap-10'>
-            <HeaderTitle title='เลือกร้านค้า' handleClick={backToHome}/>
+            <HeaderTitle title='เลือกร้านค้า'/>
             <div 
                 className='grid max-sm:w-[300px] w-[500px] rounded-[25px] shadow-config cursor-pointer'
                 onClick={handleClick}
