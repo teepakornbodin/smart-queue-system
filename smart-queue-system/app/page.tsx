@@ -1,9 +1,11 @@
+import HeaderPage from "../queue/page";
+import PaymentPage from "./Payment/page";
 
-import HeaderPage from "./pages/headerPage";
 export default function Home() {
   return (
     <div>
-      <HeaderPage/>
+      {/* <HeaderPage /> */}
+      <PaymentPage/>
     </div>
   );
 }

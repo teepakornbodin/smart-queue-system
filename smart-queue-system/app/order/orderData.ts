@@ -13,52 +13,42 @@ import hotdog from '../images/hotdog.png';
 export const orderData = [
     {
         name: "หมูสามชั้นสไลด์",
-        price: 10,
         image: pogslide, // Use the imported image directly
     },
     {
         name: "หมูสไลด์",
-        price: 10,
         image: pog,
     },
     {
         name: "ไข่",
-        price: 10,
         image: egg,
     },
     {
         name: "มาม่า",
-        price: 10,
         image: mama,
     },
     {
         name: "เห็ดเข็มทอง",
-        price: 10,
         image: mushroom,
     },
     {
         name: "เต้าหู้ชีส",
-        price: 10,
         image: taohu,
     },
     {
         name: "ผัก",
-        price: 10,
         image: veget,
     },
     {
         name: "ปลาหมึก",
-        price: 10,
         image: squid,
     },
     {
         name: "วากาเมะ",
-        price: 10,
         image: wakame,
     },
     {
         name: "ไส้กรอก",
-        price: 10,
         image: hotdog,
     },
 
