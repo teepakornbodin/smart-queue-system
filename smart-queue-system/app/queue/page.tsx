@@ -8,17 +8,6 @@ import locationImgame from "../images/location_logo.png";
 const PaymentPage: React.FC = () => {
     const currentDate = new Date().toLocaleDateString('th-TH', { timeZone: 'Asia/Bangkok' });
     const currentTime = new Date().toLocaleTimeString('th-TH', { timeZone: 'Asia/Bangkok' });
-    // const [currentDate, setCurrentDate] = useState < string>()
-    // new Date().toLocaleString('th-TH', { timeZone: 'Asia/Bangkok' });
-
-    // useEffect(() => {
-    //     const interval = setInterval(() => {
-    //         setCurrentDate(new Date().toLocaleString('th-TH', { timeZone: 'Asia/Bangkok' }));
-    //     }, 1000); // อัพเดททุก 1 วินาที
-
-    //     // ล้าง interval เมื่อ component ถูก unmount เพื่อป้องกันปัญหา memory leak
-    //     return () => clearInterval(interval);
-    // }, []);
 
     return (
         <div className="min-h-screen flex flex-col items-center justify-center bg-[#CA7257]">
