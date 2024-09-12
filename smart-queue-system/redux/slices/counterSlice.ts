@@ -3,14 +3,17 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 interface MenuItem {
     menu: string,
     img: any,
-    quantities: number
+    quantities: number,
+    price: number //price ของแต่ละเมนู
 }
 interface MenuState {
     menuLists: MenuItem[]
+    totalPrice: number //ราคารวทั้งหมด
 }
 
 const initialState: MenuState = {
-    menuLists: []
+    menuLists: [],
+    totalPrice: 0 //initial value is 0
 };
 
 const menuSlice = createSlice({
@@ -29,6 +32,10 @@ const menuSlice = createSlice({
                 state.menuLists.push(action.payload);
             }
             console.log(state.menuLists)
+
+            // คำนวณราคาทั้งหมดใหม่
+            state.totalPrice = state.menuLists.reduce((sum, item) => 
+                sum + (item.quantities * item.price), 0);
         },
         decreaseQuantityMenu: (state, action: PayloadAction<string>) => {
             const indexMenu = state.menuLists.findIndex(
@@ -47,16 +54,27 @@ const menuSlice = createSlice({
                 });
             }
             console.log(state.menuLists)
+
+            // คำนวณราคาทั้งหมดใหม่
+            state.totalPrice = state.menuLists.reduce((sum, item) => 
+                sum + (item.quantities * item.price), 0);
         },
         removeMenu: (state, action: PayloadAction<string>) => {
             state.menuLists = state.menuLists.filter(
                 (item) => item.menu !== action.payload
             )
             console.log(state.menuLists)
+            
+            // คำนวณราคาทั้งหมดใหม่
+            state.totalPrice = state.menuLists.reduce((sum, item) => 
+                sum + (item.quantities * item.price), 0);
         },
+        setPrice: (state, action: PayloadAction<number>) => {
+            state.totalPrice = action.payload;
+        }
     }
 });
 
-export const { addMenu, removeMenu, decreaseQuantityMenu,} = menuSlice.actions;
+export const { addMenu, removeMenu, decreaseQuantityMenu, setPrice} = menuSlice.actions;
 
 export default menuSlice.reducer;

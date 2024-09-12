@@ -5,7 +5,7 @@ import { RootState } from '@/redux/store';
 import { useRouter } from 'next/navigation'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { addMenu, decreaseQuantityMenu, removeMenu } from "@/redux/slices/counterSlice";
+import { addMenu, decreaseQuantityMenu, removeMenu, setPrice } from "@/redux/slices/counterSlice";
 
 function ConfirmOrder() {
   const router = useRouter()
@@ -17,7 +17,10 @@ function ConfirmOrder() {
   }
 
   const handleIncrease = (quantities: number, menu: string, img: any) => {
-    dispatch(addMenu({ menu, img, quantities }))
+    dispatch(addMenu({
+      menu, img, quantities,
+      price: 0 // add initial value of price; tle
+    }))
   };
 
   const handleDecrease = (menu: string) => {
@@ -32,6 +35,15 @@ function ConfirmOrder() {
   const backToOrder = () => {
     router.push('order')
   }
+  //function onClick in button pay bill
+  const goToPayment = () => {
+    router.push('payment')
+  }
+
+  //send price into redux, it calculate realtime cuz i calculate with every function in redux; tle
+  useEffect(() => {
+    dispatch(setPrice(total)) // ส่งราคาทั้งหมดลง Redux
+  }, [total, dispatch]);
 
   return (
     <div className='flex flex-col items-center gap-5 bg-primary pt-5 h-screen'>
@@ -66,7 +78,7 @@ function ConfirmOrder() {
                 className='border border-black rounded-xl px-4 py-2'
               />
             </div>
-            <button className='bg-primary rounded-xl py-3'>
+            <button className='bg-primary rounded-xl py-3' onClick={goToPayment}>
               <h2 className='text-white text-xl'>Confirm Order</h2>
             </button>
           </div>
