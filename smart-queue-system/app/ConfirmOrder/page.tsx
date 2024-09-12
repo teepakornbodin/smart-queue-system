@@ -50,7 +50,7 @@ function ConfirmOrder() {
 
   return (
     <div className='flex flex-col items-center gap-5 bg-primary pt-5 h-screen'>
-      <HeaderTitle title={'Confrim Order'} link={backToOrder} />
+      <HeaderTitle title={'Confirm Order'} link={backToOrder} />
       <div className='bg-white w-screen rounded-t-3xl px-8 py-2 relative h-full'>
         {menuLists.length > 0 ? (
           <div>
@@ -81,13 +81,10 @@ function ConfirmOrder() {
                   className='border border-black rounded-xl px-4 py-2'
                 />
               </div>
-              <button className='bg-primary rounded-xl py-3'>
+              <button className='bg-primary rounded-xl py-3' onClick={goToPayment}>
                 <h2 className='text-white text-xl'>Confirm Order</h2>
               </button>
             </div>
-            <button className='bg-primary rounded-xl py-3' onClick={goToPayment}>
-              <h2 className='text-white text-xl'>Confirm Order</h2>
-            </button>
           </div>
         ) : (
           <div className='flex flex-col justify-center items-center w-full rounded-t-3xl h-full'>
