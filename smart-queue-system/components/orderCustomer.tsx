@@ -24,14 +24,14 @@ function OrderCustumer({ menu, img, quantites, remove, increase, decrease }: pro
             <div className='grid gap-3'>
                 <div className='flex items-center justify-between'>
                     <h2 className='text-lg font-medium'>{menu}</h2>
-                    <RiDeleteBin6Line size={20} color='#E95322' />
+                    <RiDeleteBin6Line size={20} color='#E95322' onClick={remove}/>
                 </div>
                 <div className='flex flex-col items-end gap-3'>
                     <h2 className='text-[#E95322] font-medium'>฿{price}</h2>
-                    <div className='flex items-center gap-2'>
-                        <FaCircleMinus size={20} color='#E95322' />
+                    <div className='flex items-center gap-3'>
+                        <FaCircleMinus size={20} color='#E95322' onClick={decrease}/>
                         <h2 className=''>{quantites}</h2>
-                        <FaCirclePlus size={20} color='#E95322' />
+                        <FaCirclePlus size={20} color='#E95322' onClick={increase}/>
                     </div>
                 </div>
             </div>

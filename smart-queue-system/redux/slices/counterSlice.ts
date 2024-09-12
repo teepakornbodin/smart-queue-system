@@ -38,20 +38,12 @@ const menuSlice = createSlice({
                 sum + (item.quantities * item.price), 0);
         },
         decreaseQuantityMenu: (state, action: PayloadAction<string>) => {
-            const indexMenu = state.menuLists.findIndex(
+            const existIndexMenu = state.menuLists.findIndex(
                 (item) => item.menu === action.payload
             );
 
-            if (indexMenu !== -1) {
-                state.menuLists = state.menuLists.map((item, index) => {
-                    if (index === indexMenu) {
-                        return {
-                            ...item,
-                            quantities: item.quantities > 1 ? item.quantities - 1 : 1,
-                        };
-                    }
-                    return item;
-                });
+            if (existIndexMenu !== -1) {
+                state.menuLists[existIndexMenu].quantities -= 1;
             }
             console.log(state.menuLists)
 
