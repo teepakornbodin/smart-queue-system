@@ -28,6 +28,7 @@ const menuSlice = createSlice({
             } else {
                 state.menuLists.push(action.payload);
             }
+            console.log(state.menuLists)
         },
         decreaseQuantityMenu: (state, action: PayloadAction<string>) => {
             const indexMenu = state.menuLists.findIndex(
@@ -45,18 +46,17 @@ const menuSlice = createSlice({
                     return item;
                 });
             }
+            console.log(state.menuLists)
         },
         removeMenu: (state, action: PayloadAction<string>) => {
             state.menuLists = state.menuLists.filter(
                 (item) => item.menu !== action.payload
             )
+            console.log(state.menuLists)
         },
-        clearMenu: (state) => {
-            state.menuLists = []
-        }
     }
 });
 
-export const { addMenu, removeMenu, decreaseQuantityMenu, clearMenu } = menuSlice.actions;
+export const { addMenu, removeMenu, decreaseQuantityMenu,} = menuSlice.actions;
 
 export default menuSlice.reducer;

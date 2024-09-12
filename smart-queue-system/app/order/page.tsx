@@ -7,18 +7,21 @@ import plusIcon from '../images/addIco.svg';
 import cartIcon from '../images/cartIcon.png';
 import cartIcon2 from '../images/cartIcon2.png';
 import { useRouter } from "next/navigation";
-import { Provider, useDispatch } from "react-redux";
-import { store } from '../../redux/store'
-import { addMenu, decreaseQuantityMenu } from "@/redux/slices/counterSlice";
+import { Provider, useDispatch, useSelector } from "react-redux";
+import { RootState, store } from '../../redux/store'
+import { addMenu, decreaseQuantityMenu} from "@/redux/slices/counterSlice";
+import HeaderTitle from "@/components/headerTitle";
 
 const OrderPayment = () => {
     const router = useRouter();
     const dispatch = useDispatch();
+    const menuLists = useSelector((state: RootState) => state.menu.menuLists)
     const [quantitie, setQuantities] = useState(orderData.map(() => 0));
 
     const handleIncrease = (index: number, menu: string, img: any) => {
-        setQuantities(quantitie.map((quantity, i) => i === index ? quantity + 1 : quantity));
-        dispatch(addMenu({ menu, img, quantities: index }))
+        const newQuantities = quantitie.map((quantity, i) => i === index ? quantity + 1 : quantity);
+        setQuantities(newQuantities);
+        dispatch(addMenu({ menu, img, quantities: newQuantities[index] }));
     };
 
     const handleDecrease = (index: number, menu: string) => {
@@ -32,13 +35,15 @@ const OrderPayment = () => {
         router.push('/ConfirmOrder')
     }
 
+    const backToSelectShop = () => {
+        router.push('/SelectShop')
+    }
+
     return (
-        <div className={`relative min-h-screen w-full bg-gradient-to-r from-orange-800 to-orange-800 pt-5`}>
-            <h1 className="absolute top-4 left-1/2 transform -translate-x-1/2 text-3xl text-center text-white">
-                ชาบูเสียบไม้
-            </h1>
+        <div className={`relative min-h-screen w-full bg-primary pt-5`}>
+            <HeaderTitle title={"ชาบูเสียบไม้"} link={backToSelectShop}/>
             <div>
-                <div className="bg-white p-5 rounded-3xl shadow-lg mt-11">
+                <div className="bg-white p-5 rounded-t-3xl shadow-lg mt-11">
                     <div className="grid grid-cols-2 md:grid-cols-2 gap-5">
                         {orderData.map((data, index) => (
                             <div key={index} className="">
@@ -48,7 +53,7 @@ const OrderPayment = () => {
                                         <h1 className="text-lg text-center mt-2">{data.name}</h1>
                                         <h1 className="text-lg text-center">{quantitie[index] * 10}฿</h1>
                                         <div className="flex items-center justify-center mt-2">
-                                            <button onClick={() => handleDecrease(quantitie[index], data.name)}>
+                                            <button onClick={() => handleDecrease(index, data.name)}>
                                                 <Image src={lessIcon} alt="less" width={30} height={30} />
                                             </button>
                                             <h1 className="text-lg text-center mx-7">{quantitie[index]}</h1>
@@ -65,7 +70,7 @@ const OrderPayment = () => {
                             Total: ฿{total}
                         </h1>
                         <button
-                            className="w-full bg-orange-800 text-white p-2 rounded-md hover:bg-orange-700 transition duration-300 transform hover:scale-105"
+                            className="w-full bg-primary text-white p-2 rounded-md hover:bg-orange-700 transition duration-300 transform hover:scale-105"
                             onClick={confirmOrder}
                         >
                             ยืนยันรายการสินค้า
