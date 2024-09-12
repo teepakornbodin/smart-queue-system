@@ -21,7 +21,10 @@ function ConfirmOrder() {
   };
 
   const handleDecrease = (menu: string) => {
-    dispatch(decreaseQuantityMenu(menu))
+    const existingItem = menuLists.find(item => item.menu === menu);
+    if (existingItem && existingItem.quantities > 1) {
+      dispatch(decreaseQuantityMenu(menu));
+    }
   };
 
   const total = menuLists.reduce((sum, item) => sum + (item.quantities * 10), 0)
@@ -35,47 +38,47 @@ function ConfirmOrder() {
 
   return (
     <div className='flex flex-col items-center gap-5 bg-primary pt-5 h-screen'>
-      <HeaderTitle title={'Confrim Order'} link={backToOrder}/>
+      <HeaderTitle title={'Confrim Order'} link={backToOrder} />
       <div className='bg-white w-screen rounded-t-3xl px-8 py-2 relative h-full'>
         {menuLists.length > 0 ? (
-        <div>
-          <h2 className='font-medium text-xl my-4'>Order Summary</h2>
           <div>
-            {menuLists.map((item) => (
-              <OrderCustumer
-                key={item.menu}
-                menu={item.menu}
-                img={item.img}
-                quantites={item.quantities}
-                remove={() => deleteMenu(item.menu)}
-                increase={() => handleIncrease(item.quantities, item.menu, item.img)}
-                decrease={() => handleDecrease(item.menu)}
-              />
-            ))}
-          </div>
-          <div className='sticky bottom-0 left-0 w-full py-4 bg-white flex flex-col justify-center gap-6 border-t-2 border-primary'>
-            <div className='flex justify-between items-center'>
-              <h2 className='text-lg font-medium'>ToTal</h2>
-              <h2 className='text-lg font-medium'>฿{total}</h2>
+            <h2 className='font-medium text-xl my-4'>Order Summary</h2>
+            <div>
+              {menuLists.map((item) => (
+                <OrderCustumer
+                  key={item.menu}
+                  menu={item.menu}
+                  img={item.img}
+                  quantites={item.quantities}
+                  remove={() => deleteMenu(item.menu)}
+                  increase={() => handleIncrease(item.quantities, item.menu, item.img)}
+                  decrease={() => handleDecrease(item.menu)}
+                />
+              ))}
             </div>
-            <div className='flex flex-col gap-2'>
-              <h2 className='font-medium text-lg'>หมายเหตุ</h2>
-              <input
-                type='text'
-                placeholder='ระบุหมายเหตุ เช่น ไม่ผัก น้ำเยอะ'
-                className='border border-black rounded-xl px-4 py-2'
-              />
+            <div className='sticky bottom-0 left-0 w-full py-4 bg-white flex flex-col justify-center gap-6 border-t-2 border-primary'>
+              <div className='flex justify-between items-center'>
+                <h2 className='text-lg font-medium'>ToTal</h2>
+                <h2 className='text-lg font-medium'>฿{total}</h2>
+              </div>
+              <div className='flex flex-col gap-2'>
+                <h2 className='font-medium text-lg'>หมายเหตุ</h2>
+                <input
+                  type='text'
+                  placeholder='ระบุหมายเหตุ เช่น ไม่ผัก น้ำเยอะ'
+                  className='border border-black rounded-xl px-4 py-2'
+                />
+              </div>
+              <button className='bg-primary rounded-xl py-3'>
+                <h2 className='text-white text-xl'>Confirm Order</h2>
+              </button>
             </div>
-            <button className='bg-primary rounded-xl py-3'>
-              <h2 className='text-white text-xl'>Confirm Order</h2>
-            </button>
           </div>
-        </div>
-      ) : (
-        <div className='flex flex-col justify-center items-center w-full rounded-t-3xl h-full'>
+        ) : (
+          <div className='flex flex-col justify-center items-center w-full rounded-t-3xl h-full'>
             <h2 className='text-2xl text-primary font-medium'>โปรดเลือกเมนูของคุณ</h2>
-        </div>
-      )}
+          </div>
+        )}
       </div>
     </div>
   )
