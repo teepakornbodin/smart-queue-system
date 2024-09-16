@@ -1,8 +1,6 @@
-import HeaderPage from "./queue/page";
-import connectDB from "../config/database"
+import HeaderPage from "./Home/page";
 
 export default function Home() {
-  connectDB(); // test DB connection
   return (
     <div>
       <HeaderPage />
