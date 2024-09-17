@@ -30,6 +30,34 @@ const HeaderPage = () => {
       console.log('Please enter your name before proceeding.');
     }
   };
+
+  // test DB
+  // const handleClick = async () => {
+  //   if (userName.trim()) {
+  //     try {
+  //       const response = await fetch('api/collectName', {
+  //         method: 'POST',
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //         },
+  //         body: JSON.stringify({ userName }),
+  //       });
+
+  //       const data = await response.json();
+
+  //       if (response.ok) {
+  //         console.log('Username saved successfully:', data.message);
+  //         router.push('/SelectShop');
+  //       } else {
+  //         console.error('Failed to save username:', data.message);
+  //       }
+  //     } catch (error) {
+  //       console.error('Error:', error);
+  //     }
+  //   } else {
+  //     console.log('Please enter your name before proceeding.');
+  //   }
+  // };
   
   return (
     <div
