@@ -1,9 +1,9 @@
-import HeaderPage from "./Home/page";
+import AdminPage from "./Admin/page";
 
 export default function Home() {
   return (
     <div>
-      <HeaderPage />
+      <AdminPage />
     </div>
   );
 }

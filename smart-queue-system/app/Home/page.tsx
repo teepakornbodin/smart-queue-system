@@ -100,6 +100,6 @@ const HeaderPage = () => {
       </div>
     </div> 
   );
-  }
+}
 
 export default HeaderPage;
