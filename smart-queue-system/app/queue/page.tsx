@@ -7,27 +7,20 @@ import locationImgame from "../images/location_logo.png";
 import line from "../images/line_dot.svg";
 
 const QueuePage: React.FC = () => {
-    const [userQueue, setUserQueue] = useState(23);
+
+    // Retrieve the queue number from session storage
+    const [userQueue, setUserQueue] = useState<number>(0);
     const [currentQueue, setCurrentQueue] = useState(18);
+
+    useEffect(() => {
+        const storedQueue = sessionStorage.getItem('userQueue');
+        if (storedQueue) {
+            setUserQueue(parseInt(storedQueue, 10));
+        }
+    }, []);
 
     const currentDate = new Date().toLocaleDateString('th-TH', { timeZone: 'Asia/Bangkok' });
 
-    // ฟังก์ชันสำหรับเพิ่มค่า current queue
-    const incrementCurrentQueue = () => {
-        setCurrentQueue(currentQueue + 1);  // เพิ่มค่า current queue ขึ้น 1
-    };
-    // ฟังก์ชันสำหรับเพิ่มค่า user queue
-    const incrementUserQueue = () => {
-        setUserQueue(userQueue + 1);  // เพิ่มค่า user queue ขึ้น 1
-    };
-    // ฟังก์ชันสำหรับรีเซ็ตค่า current queue
-    const resetCurrentQueue = () => {
-        setCurrentQueue(1);  // ตั้งค่า current queue กลับไปที่ 1
-    };
-    // ฟังก์ชันสำหรับรีเซ็ตค่า user queue
-    const resetUserQueue = () => {
-        setUserQueue(1); // ตั้งค่า user queue กลับไปที่ 1
-    };
     // ฟังก์ชั่นในการตกแต่งเลขคิวให้เป็นแบบ 001, 023, 123
     const formatQueueNumber = (number: any) => {
         return String(number).padStart(3, '0');
