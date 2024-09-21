@@ -7,6 +7,50 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { addMenu, decreaseQuantityMenu, removeMenu, setPrice } from "@/redux/slices/counterSlice";
 
+// Function to check if it's a new day
+function isNewDay(lastDate: Date): boolean {
+  const today = new Date();
+  return (
+    today.getFullYear() !== lastDate.getFullYear() ||
+    today.getMonth() !== lastDate.getMonth() ||
+    today.getDate() !== lastDate.getDate()
+  );
+}
+
+// Function to get the next queue number
+interface QueueEntry {
+  queue: number;
+  createdAt: Date;
+}
+
+async function getNextQueueNumber(): Promise<number> {
+  try {
+    const response = await fetch('api/getLastQueue'); 
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch the last queue');
+    }
+
+    const lastEntryQueue: QueueEntry | null = await response.json(); // Parse the response
+
+    let queue = 0;
+
+    if (lastEntryQueue) {
+      const lastDate = new Date(lastEntryQueue.createdAt); // Ensure createdAt is a Date object
+      if (isNewDay(lastDate)) {
+        queue = 1; // Reset queue for a new day
+      } else {
+        queue = lastEntryQueue.queue + 1; // Increment the queue for the current day
+      }
+    }
+
+    return queue; // Return the next queue number
+  } catch (error) {
+    console.error('Error fetching the last queue:', error);
+    return 1; // Default queue number in case of error
+  }
+}
+
 function ConfirmOrder() {
   const router = useRouter()
   const menuLists = useSelector((state: RootState) => state.menu.menuLists)
@@ -50,6 +94,9 @@ function ConfirmOrder() {
       return;
     }
   
+    // Get the queue number
+    const queue = await getNextQueueNumber();
+
     const orderData = {
       name: currentOrderName,
       items: menuLists.map(item => ({
@@ -61,12 +108,13 @@ function ConfirmOrder() {
       })),
       totalPrice: total,
       note,
+      queue: queue,
     };
   
     console.log('Sending order data:', orderData);
   
     try {
-      const response = await fetch('/api/setorders', {
+      const response = await fetch('/api/storeData', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -81,7 +129,9 @@ function ConfirmOrder() {
   
       if (response.ok) {
         if (data.success) {
-          router.push(' Payment');
+          // Save queue to session storage
+          sessionStorage.setItem('userQueue', String(queue));
+          router.push('/payment');
         } else {
           throw new Error(data.error || 'Failed to save order');
         }
@@ -90,7 +140,9 @@ function ConfirmOrder() {
       }
     } catch (error) {
       console.error('Error saving order:', error);
-      alert(`Failed to save order. Please try again. Error: ${error.message}`);
+      // Check if error is an instance of Error
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+      alert(`Failed to save order. Please try again. Error: ${errorMessage}`);
     }
   }
 

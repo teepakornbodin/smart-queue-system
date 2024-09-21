@@ -7,16 +7,47 @@ import locationImgame from "../images/location_logo.png";
 import line from "../images/line_dot.svg";
 
 const QueuePage: React.FC = () => {
-
-    // Retrieve the queue number from session storage
     const [userQueue, setUserQueue] = useState<number>(0);
-    const [currentQueue, setCurrentQueue] = useState(18);
+    const [currentQueue, setCurrentQueue] = useState<number>(0);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
+
+    const fetchCurrentQueue = async () => {
+        try {
+            const response = await fetch('/api/getCurrentQueue');
+            if (!response.ok) {
+                throw new Error('Failed to fetch current queue');
+            }
+            const data = await response.json();
+            setCurrentQueue(data.queue);
+        } catch (err) {
+            console.error(err);
+            if (err instanceof Error) {
+                setError(err.message);
+            } else {
+                setError('Unknown error occurred');
+            }
+        } finally {
+            setLoading(false);
+        }
+    };
 
     useEffect(() => {
         const storedQueue = sessionStorage.getItem('userQueue');
         if (storedQueue) {
             setUserQueue(parseInt(storedQueue, 10));
         }
+
+        fetchCurrentQueue();
+
+        // Set up a timer to refresh the queue every 30 seconds
+        const intervalId = setInterval(() => {
+            fetchCurrentQueue();
+        }, 30000);
+
+        return () => {
+            clearInterval(intervalId);
+        };
     }, []);
 
     const currentDate = new Date().toLocaleDateString('th-TH', { timeZone: 'Asia/Bangkok' });
