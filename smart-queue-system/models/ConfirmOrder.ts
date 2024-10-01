@@ -7,7 +7,7 @@ interface IOrderItem {
   price: number;
 }
 
-interface IOrder extends Document {
+export interface IOrder extends Document {
   name: string;
   items: IOrderItem[];
   totalPrice: number;

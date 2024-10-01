@@ -12,7 +12,7 @@ function OrderVendor({ name, queue, note, totalPrice}: props) {
     const router = useRouter();
 
     const handleClick = () => {
-          router.push('/Admin2');
+          router.push('/Admin/order');
     };
 
     return (
