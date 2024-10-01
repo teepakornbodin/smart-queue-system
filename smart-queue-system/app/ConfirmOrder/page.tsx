@@ -36,11 +36,13 @@ function ConfirmOrder() {
   // },[menuLists])
 
   const backToOrder = () => {
-    router.push('order')
+    router.push('/order')
   }
   //function onClick in button pay bill
   const goToPayment = () => {
-    router.push('payment')
+    router.push('/Payment')
+    console.log(menuLists)
+    
   }
 
   //send price into redux, it calculate realtime cuz i calculate with every function in redux; tle

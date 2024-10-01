@@ -35,7 +35,7 @@ const QueuePage: React.FC = () => {
 
     return (
         <div className="min-h-screen flex flex-col items-center justify-center bg-[#CA7257]">
-            <h1 className="text-6xl text-white-900 p-4 font-bold mt-1">Queue </h1>
+            <h1 className="text-3xl text-white p-4 font-medium mt-1">Queue </h1>
             <div className="bg-white shadow-md rounded-lg max-w-md w-full">
 
                 {/* Queue Text Section */}
