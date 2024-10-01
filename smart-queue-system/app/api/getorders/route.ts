@@ -8,11 +8,12 @@ export async function GET() {
 
     const orders = await Order.find().lean();
 
+    
     // แปลงข้อมูล Mongoose Document เป็น JSON และรวมข้อมูลทั้งหมด
     const ordersJSON = orders.map(order => ({
       _id: order._id.toString(),
       name: order.name,
-      items: order.items.map(item => ({
+      items: order.items.map((item: { menu: any; img: any; quantities: any; price: any; }) => ({
         menu: item.menu,
         img: item.img,
         quantities: item.quantities,
