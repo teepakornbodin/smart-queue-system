@@ -49,7 +49,7 @@ export const orderData = [
     },
     {
         name: "ไส้กรอก",
-        image: hotdog,
+        image: hotdog, 
     },
 
 ];
