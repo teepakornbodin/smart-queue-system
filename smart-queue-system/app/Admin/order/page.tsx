@@ -1,7 +1,7 @@
 'use client';
 
 
-const DetailPage = () => {
+const DetailPage = ({params} : {params : {}}) => {
     return (
         <div className='bg-[#CA7257] h-screen bg-cover flex flex-col w-full'>
             <h1 className='font-semibold text-3xl text-white flex justify-center p-10'>รายละเอียด</h1>

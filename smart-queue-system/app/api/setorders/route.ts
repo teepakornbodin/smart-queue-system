@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
     console.log('Order saved successfully');
 
     return NextResponse.json({ success: true, data: order }, { status: 201 });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error in POST /api/setorders:', error);
     return NextResponse.json({ success: false, error: error.message }, { status: 400 });
   }

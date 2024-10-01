@@ -5,11 +5,10 @@ import Image from "next/image";
 import qrImage from "../images/qrCode.png";
 // import { FiArrowLeft } from "react-icons/fi";
 import {useRouter} from "next/navigation";
-import Link from 'next/link';
-import OrderPayment from "../order/page";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import HeaderTitle from "@/components/headerTitle";
+import { clearMenuList } from "@/redux/slices/counterSlice";
 
 //npx next dev
 const PaymentPage: React.FC = () => {
@@ -17,6 +16,7 @@ const PaymentPage: React.FC = () => {
   const [timeLeft, setTimeLeft] = useState(300); // 300 วินาที (5 นาที)
   const router = useRouter();
   const totalPrice = useSelector((state: RootState) => state.menu.totalPrice);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     // อัปเดตเวลาทุกๆ วินาที
@@ -45,6 +45,7 @@ const PaymentPage: React.FC = () => {
   };
   //handle button เปลี่ยน path!
   const handleOkayButton = () => {
+    dispatch(clearMenuList());
     router.push("queue");
   };
   const handleCancleButton = () => {

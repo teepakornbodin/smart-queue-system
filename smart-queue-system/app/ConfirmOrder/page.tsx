@@ -67,7 +67,7 @@ function ConfirmOrder() {
       menu,
       img,
       quantities,
-      price: 10 // Assuming a fixed price of 10 for each item
+      price: 10
     }))
   };
 
@@ -131,7 +131,7 @@ function ConfirmOrder() {
         if (data.success) {
           // Save queue to session storage
           sessionStorage.setItem('userQueue', String(queue));
-          router.push('/payment');
+          router.push('/Payment');
         } else {
           throw new Error(data.error || 'Failed to save order');
         }
