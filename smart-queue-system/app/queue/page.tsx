@@ -7,27 +7,58 @@ import locationImgame from "../images/location_logo.png";
 import line from "../images/line_dot.svg";
 
 const QueuePage: React.FC = () => {
-    const [userQueue, setUserQueue] = useState(23);
-    const [currentQueue, setCurrentQueue] = useState(18);
+    const [userQueue, setUserQueue] = useState<number>(0);
+    const [currentQueue, setCurrentQueue] = useState<number>(0);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
+
+    const fetchCurrentQueue = async () => {
+        try {
+            const response = await fetch('/api/getCurrentQueue');
+            if (!response.ok) {
+                throw new Error('Failed to fetch current queue');
+            }
+            const data = await response.json();
+            setCurrentQueue(data.queue);
+        } catch (err) {
+            console.error(err);
+            if (err instanceof Error) {
+                setError(err.message);
+            } else {
+                setError('Unknown error occurred');
+            }
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        const storedQueue = sessionStorage.getItem('userQueue');
+        if (storedQueue) {
+            setUserQueue(parseInt(storedQueue, 10));
+        }
+
+        fetchCurrentQueue();
+
+        // Set up a timer to refresh the queue every 30 seconds
+        // Bug: It's double fetch for the first time come to this page and when currentQueue is changed. (but it's worked)
+        const intervalId = setInterval(() => {
+            if (currentQueue !== userQueue) {
+                fetchCurrentQueue();
+            }
+        }, 30000);
+
+        if (currentQueue === userQueue) {
+            clearInterval(intervalId);
+        }
+
+        return () => {
+            clearInterval(intervalId);
+        };
+    }, [currentQueue, userQueue]);
 
     const currentDate = new Date().toLocaleDateString('th-TH', { timeZone: 'Asia/Bangkok' });
 
-    // ฟังก์ชันสำหรับเพิ่มค่า current queue
-    const incrementCurrentQueue = () => {
-        setCurrentQueue(currentQueue + 1);  // เพิ่มค่า current queue ขึ้น 1
-    };
-    // ฟังก์ชันสำหรับเพิ่มค่า user queue
-    const incrementUserQueue = () => {
-        setUserQueue(userQueue + 1);  // เพิ่มค่า user queue ขึ้น 1
-    };
-    // ฟังก์ชันสำหรับรีเซ็ตค่า current queue
-    const resetCurrentQueue = () => {
-        setCurrentQueue(1);  // ตั้งค่า current queue กลับไปที่ 1
-    };
-    // ฟังก์ชันสำหรับรีเซ็ตค่า user queue
-    const resetUserQueue = () => {
-        setUserQueue(1); // ตั้งค่า user queue กลับไปที่ 1
-    };
     // ฟังก์ชั่นในการตกแต่งเลขคิวให้เป็นแบบ 001, 023, 123
     const formatQueueNumber = (number: any) => {
         return String(number).padStart(3, '0');
@@ -41,23 +72,32 @@ const QueuePage: React.FC = () => {
                 {/* Queue Text Section */}
                 <div className="mt-3 block p-2 justify-center">
                     <div className=" block justify-end">
-                        <p className="text-center text-[#878787] text-2xl">
-                            คิวปัจจุบัน <br />
+                        {currentQueue !== userQueue && (
+                            <>
+                                <p className="text-center text-[#878787] text-2xl">
+                                    คิวปัจจุบัน <br />
+                                </p>
+                                <p className="text-center text-[#CA7257] text-7xl">
+                                    {formatQueueNumber(currentQueue)} <br />
+                                </p>
+                                <div className="block justify-end p-6">
+                                    <p className="text-center text-[#878787] text-2xl">
+                                        คิวของคุณ <br />
+                                    </p>
+                                    <p className="text-center text-[#CA7257] text-7xl">
+                                        {formatQueueNumber(userQueue)} <br />
+                                    </p>
+                                </div>
+                            </>
+                        )}
+                        {currentQueue === userQueue && (
+                            <p className="text-center text-[#CA7257] text-5xl mt-4">
+                                ถึงคิวคุณแล้ว!
+                            </p>
+                        )}
+                        <p className="text-[#878787] text-center font-light text-xl p-3">
+                            Date: {currentDate} <br />
                         </p>
-                        <p className="text-center text-[#CA7257] text-7xl">
-                            {formatQueueNumber(currentQueue)} <br />
-                        </p>
-                        <div className=" block justify-end p-6">
-                            <p className="text-center text-[#878787] text-2xl">
-                                คิวของคุณ <br />
-                            </p>
-                            <p className="text-center text-[#CA7257] text-7xl">
-                                {formatQueueNumber(userQueue)} <br />
-                            </p>
-                            <p className="text-[#878787] text-center font-light text-xl p-3">
-                                Date: {currentDate} <br />
-                            </p>
-                        </div>
                         <Image
                             src={line}
                             alt="line"

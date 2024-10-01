@@ -19,7 +19,14 @@ const OrderPayment = () => {
     const handleIncrease = (menu: string, img: any) => {
         const existingItem = menuLists.find(item => item.menu === menu);
         const quantities = existingItem ? existingItem.quantities + 1 : 1;
+<<<<<<< HEAD
         dispatch(addMenu({ menu, img, quantities, price: 0 }));
+=======
+        dispatch(addMenu({
+            menu, img, quantities,
+            price: 0
+        }));
+>>>>>>> main
     };
 
     const handleDecrease = (menu: string) => {
