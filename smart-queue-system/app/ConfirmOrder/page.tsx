@@ -131,7 +131,7 @@ function ConfirmOrder() {
         if (data.success) {
           // Save queue to session storage
           sessionStorage.setItem('userQueue', String(queue));
-          router.push('/Payment');
+          router.push('/payment');
         } else {
           throw new Error(data.error || 'Failed to save order');
         }
