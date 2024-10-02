@@ -1,6 +1,5 @@
 'use client';
 
-
 const DetailPage = ({params} : {params : {}}) => {
     return (
         <div className='bg-[#CA7257] h-screen bg-cover flex flex-col w-full'>
