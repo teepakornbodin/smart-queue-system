@@ -1,12 +1,15 @@
-import HeaderPage from "../queue/page";
-import PaymentPage from "./Payment/page";
-import HomePage from "./Home/page";
+// import HeaderPage from "./queue/page";
+import home1 from './Home/page'
+import HeaderPage from './Home/page';
+import AdminPage from "./Admin/page";
+import SelectShop from './SelectShop/page';
+
 export default function Home() {
   return (
     <div>
-      {/* <HeaderPage /> */}
-      {/* <PaymentPage/> */}
-      <HomePage/>
+      <HeaderPage/>
+      {/* <SelectShop/> */}
+      {/* <AdminPage /> */}
     </div>
   );
 }

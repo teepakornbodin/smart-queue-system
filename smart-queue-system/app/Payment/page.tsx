@@ -5,14 +5,18 @@ import Image from "next/image";
 import qrImage from "../images/qrCode.png";
 // import { FiArrowLeft } from "react-icons/fi";
 import {useRouter} from "next/navigation";
-import Link from 'next/link';
-import OrderPayment from "../order/page";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import HeaderTitle from "@/components/headerTitle";
+import { clearMenuList } from "@/redux/slices/counterSlice";
 
 //npx next dev
 const PaymentPage: React.FC = () => {
-  const [price, setPrice] = useState(50) //สามารถเปลี่ยนตัวแปรข้างในให้สอดคล้องกับราคาที่ส่งมา
+  // const [price, setPrice] = useState(50) //สามารถเปลี่ยนตัวแปรข้างในให้สอดคล้องกับราคาที่ส่งมา
   const [timeLeft, setTimeLeft] = useState(300); // 300 วินาที (5 นาที)
   const router = useRouter();
+  const totalPrice = useSelector((state: RootState) => state.menu.totalPrice);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     // อัปเดตเวลาทุกๆ วินาที
@@ -22,7 +26,7 @@ const PaymentPage: React.FC = () => {
 
     // ตั้งเวลา 5 นาที (300,000 มิลลิวินาที) เปลี่ยน path!
     const timer = setTimeout(() => {
-      router.push("/Home");
+      router.push("ConfirmOrder");
     }, 300000);
 
     // ล้าง interval และ timer เมื่อ component ถูก unmount
@@ -41,35 +45,36 @@ const PaymentPage: React.FC = () => {
   };
   //handle button เปลี่ยน path!
   const handleOkayButton = () => {
-    router.push("/Home");
+    dispatch(clearMenuList());
+    router.push("queue");
+  };
+  const handleCancleButton = () => {
+    router.push("ConfirmOrder")
+  }
+  const backToConfirm = () => {
+    router.push("ConfirmOrder")
   };
 
   return (
-    <div className="min-h-screen grid items-center justify-center bg-gray-100">
-      <div className="bg-white shadow-md rounded-lg p-6 max-w-md w-full">
+    // <div className="min-h-screen grid items-center justify-center bg-gray-100">
+    <div className='flex flex-col items-center gap-5 bg-primary pt-5 h-screen'>
         {/* header */}
-        <div className="bg-[#CA7257] rounded-lg relative flex justify-center p-1.5 mt-1.5">
-          <button className="absolute left-2">
-            {/* <FiArrowLeft color="white" /> */}
-          </button>
-          <div>
-            <p className="text-white text-xs">ชำระเงิน</p>
-          </div>
-        </div>
+        <HeaderTitle title={'Payment'} link={backToConfirm}/>
         {/* QR Code Section */}
+        <div className='bg-white w-screen rounded-t-3xl px-8 py-2 relative h-full'>
         <div className="flex flex-col items-center m-1">
           <Image
             src={qrImage}
             alt="QR Code"
-            width={185} // กำหนดขนาดที่ต้องการ
-            height={185}
+            width={325} // กำหนดขนาดที่ต้องการ
+            height={200}
             className="object-contain mb-4 border-1 scale-[80%]"
           />
           <div className="bg-[#045188] border-1 border-red-200 rounded-lg">
-            <p className=" text-center text-white text-xs px-4 py-2">
+            <p className=" text-center text-white text-s px-6 py-2">
               สแกน QR เพื่อชำระเงิน
               <br />
-              ยอดชำระ {price} บาท
+              ยอดชำระ {totalPrice} บาท
             </p>
           </div>
         </div>
@@ -79,16 +84,27 @@ const PaymentPage: React.FC = () => {
           กรุณาชำระเงินภายใน {formatTime(timeLeft)} นาที
         </p>
 
+        {/* save qr for easily use */}
+        <div className="mt-5 flex justify-center">
+          <a href={qrImage.src} download="qrCode.png">
+            <button className="bg-[#9D9B9B] text-white px-4 py-2 rounded-lg hover:bg-[#767676] text-s">
+              Save QRCode
+            </button>
+          </a>
+        </div>
+
         {/* Buttons */}
-        <div className="mt-6 flex justify-between">
-          <button className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 text-xs">
+        <div className="mt-10 flex justify-around">
+          <button className="bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-600 text-s"
+            onClick={handleCancleButton}>
             ยกเลิก
           </button>
-          <button className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 text-xs"
+          <button className="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 text-s"
             onClick={handleOkayButton}>
               ตกลง
           </button>
         </div>
+        
       </div>
     </div>
   );
